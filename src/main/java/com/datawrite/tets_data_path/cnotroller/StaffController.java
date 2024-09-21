@@ -20,16 +20,13 @@ import jakarta.validation.Valid;
 public class StaffController {
 
     @Autowired
-    StaffService empService ;
+    StaffService empService;
 
     @GetMapping("/")
     public String getStaffData(Model model , @RequestParam(required = false) String id) {
-        
         model.addAttribute("emp", empService.geEmpById(id));
         return "addStaffDetails";
     }
-
-   
 
     @PostMapping("/dataSubmitForm")
     public String dataSubmitForm(@Valid @ModelAttribute("emp") Staff staff , BindingResult result) {
@@ -40,15 +37,20 @@ public class StaffController {
         }
 
       empService.submitStaff(staff);
-        
         return "redirect:/getData";
     }
 
     @GetMapping("/getData")
     public String getData(Model model) {
-
         model.addAttribute("allEmp", empService.getAllEmp() );
         return "showAllStaff";
+    }
+
+
+    @PostMapping("/delete")
+    public String deleteEmployee(@RequestParam String id) {
+        empService.removeEmployee(empService.getEmpId(id));
+        return "redirect:/getData"; // Redirect to the employee list
     }
       
     

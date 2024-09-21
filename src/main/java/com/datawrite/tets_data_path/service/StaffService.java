@@ -32,6 +32,18 @@ public class StaffService {
             staffRepository.updateEmp(staff, index);
         }
 
+        /**
+           Remove Single Employee  start 
+         */
+
+         public void removeEmployee(int index){
+            staffRepository.removeEmployee(index);
+        }
+
+        /**
+           Remove Single Employee  end
+        */
+
         public List<Staff> getAllEmp(){
             return staffRepository.getAllEmp();
         }

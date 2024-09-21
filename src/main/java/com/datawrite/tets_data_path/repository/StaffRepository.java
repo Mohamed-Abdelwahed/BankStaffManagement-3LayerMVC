@@ -26,6 +26,12 @@ public class StaffRepository {
         }
 
 
+        /** add remove from staff */
+        public void removeEmployee(int index){
+            allEmp.remove(index);
+        }
+
+
         
 
 }

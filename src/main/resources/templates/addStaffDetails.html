@@ -1,26 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Add New Employee</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
-<body>
-    <p>
-        <a th:href="@{/}">Add New Employee</a>
-        <br><br>
-        <a th:href="@{/getData}">All Employee</a>
-    </p>
 
-    <form  th:action="@{/dataSubmitForm}" method="post" th:object="${emp}" >
-        <p th:errors="*{empName}"></p>
-        <input type="text" name="empName" id="" placeholder="Emp Name" th:field="*{empName}">
-        <p th:errors="*{empTitle}"></p>
-        <input type="text" name="empTitle" id="" placeholder="Emp Title" th:field="*{empTitle}">
-        <input type="text" name="empSalary" id="" placeholder="Emp Salary" th:field="*{empSalary}">
+<body>
+    <nav>
+        <ul>
+            <li><a th:href="@{/}">Add New Employee</a></li>
+            <li><a th:href="@{/getData}">All Employees</a></li>
+        </ul>
+    </nav>
+
+    <h1>Add New Employee</h1>
+
+    <form class="form" th:action="@{/dataSubmitForm}" method="post" th:object="${emp}">
+        <p class="no-items" th:errors="*{empName}"></p>
+        <input type="text" name="empName" placeholder="Emp Name" th:field="*{empName}">
+        <p class="no-items" th:errors="*{empTitle}"></p>
+        <input type="text" name="empTitle" placeholder="Emp Title" th:field="*{empTitle}">
+        <p th:errors="*{empSalary}"></p>
+        <input type="text" name="empSalary" placeholder="Emp Salary" th:field="*{empSalary}">
         <input type="hidden" name="empID" th:field="*{id}">
         <input type="submit" value="Submit">
     </form>
+
+
     
+
+    <script>
+        window.addEventListener('scroll', function () {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+    </script>
 </body>
+
 </html>

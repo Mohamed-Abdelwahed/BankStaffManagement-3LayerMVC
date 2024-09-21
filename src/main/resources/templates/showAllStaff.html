@@ -1,32 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee List</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
+
 <body>
-  <p>
-    <a th:href="@{/}">Add New Employee</a>
-    <br><br>
-    <a th:href="@{/getData}">All Employee</a>
-</p>
+  <nav>
+    <ul>
+      <li><a th:href="@{/}">Add New Employee</a></li>
+      <li><a th:href="@{/getData}">All Employees</a></li>
+    </ul>
+  </nav>
+
+  <div class="wrapper">
+    <h1>Employee Management</h1>
+
     
-<table>
-    <tr>
-      <th>Employee Name</th>
-      <th>Employee Title</th>
-      <th>Employee Salary</th>
-    </tr>
-    <tr th:each="emp : ${allEmp}">
-      <td th:text="${emp.empName}"></td>
-      <td th:text="${emp.empTitle}"></td>
-      <td th:text="${emp.empSalary}"></td>
-      <td>
-        <a role="button" th:href="@{/(id = ${emp.id})}">update</a>
-      </td>
-    </tr>
-   
-  </table>
+  <p class="no-items" th:unless="${allEmp != null and !#lists.isEmpty(allEmp)}">
+    No items available.
+  </p>
+
+  <div th:if="${allEmp != null and !#lists.isEmpty(allEmp)}">
+    <table>
+      <tr>
+        <th>Employee Name</th>
+        <th>Employee Title</th>
+        <th>Employee Salary</th>
+        <th>Actions</th>
+      </tr>
+      <tr th:each="emp : ${allEmp}">
+        <td th:text="${emp.empName}"></td>
+        <td th:text="${emp.empTitle}"></td>
+        <td th:text="${emp.empSalary}"></td>
+        <td>
+          <a class="button" role="button" th:href="@{/(id=${emp.id})}">Update</a>
+          <form th:action="@{/delete(id=${emp.id})}" method="post" style="display:inline;">
+            <button class="button delete" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    </table>
+  </div>
+    
+  </div>
+
+
+
+
+  <script>
+
+    window.addEventListener('scroll', function () {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+
+  </script>
+
 </body>
+
 </html>
